@@ -45,9 +45,8 @@ public class InviteCodeServiceImpl implements InviteCodeService {
     @Override
     public InviteCode byCode(String code) {
         if(StringKit.isNotBlank(code)){
-            InviteCode inviteCode = new InviteCode();
-            inviteCode.setCode(code);
-            return activeRecord.one(inviteCode);
+            String sql = "select * from ss_invite_code where `code` = ?";
+            return activeRecord.one(InviteCode.class, sql, code);
         }
         return null;
     }

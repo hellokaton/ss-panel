@@ -1,12 +1,13 @@
 package com.sp.utils;
 
 import com.blade.context.WebContextHolder;
+import com.blade.kit.DateKit;
 import com.blade.kit.StringKit;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.http.wrapper.Session;
 import com.sp.config.SpConst;
-import com.sp.model.User;
+import com.sp.dto.LoginUser;
 
 /**
  * Created by biezhi on 2017/2/14.
@@ -28,7 +29,7 @@ public final class SessionUtils {
         return null;
     }
 
-    public static void setLoginUser(Session session, User login_user){
+    public static void setLoginUser(Session session, LoginUser login_user){
         if(null != session && null != login_user){
             removeUser(session);
             session.attribute(SpConst.LOGIN_SESSION_KEY, login_user);
@@ -39,12 +40,12 @@ public final class SessionUtils {
         session.removeAttribute(SpConst.LOGIN_SESSION_KEY);
     }
 
-    public static User getLoginUser() {
+    public static LoginUser getLoginUser() {
         Session session = WebContextHolder.me().getRequest().session();
         if(null == session){
             return null;
         }
-        User user = session.attribute(SpConst.LOGIN_SESSION_KEY);
+        LoginUser user = session.attribute(SpConst.LOGIN_SESSION_KEY);
         return user;
     }
 
@@ -56,7 +57,7 @@ public final class SessionUtils {
             try {
                 String val = Utils.encrypt(uid.toString(), SpConst.AES_SALT);
                 boolean isSSL = SpConst.SITE_URL.startsWith("https");
-                response.cookie("/", "sid", val, time, isSSL);
+                response.cookie("/", "sid", val, DateKit.getCurrentUnixTime() + time, isSSL);
             } catch (Exception e){
 
             }

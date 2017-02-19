@@ -7,6 +7,7 @@ import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.interceptor.Interceptor;
 import com.sp.config.SpConst;
+import com.sp.dto.LoginUser;
 import com.sp.model.User;
 import com.sp.service.UserService;
 import com.sp.utils.SessionUtils;
@@ -28,12 +29,12 @@ public class BaseInterceptor implements Interceptor {
 		LOGGE.info("UA >>> " + request.userAgent());
 		LOGGE.info("用户访问地址 >>> " + request.raw().getRequestURI() + ", 来路地址  >>> " + Utils.getIpAddr(request));
 
-		User user = SessionUtils.getLoginUser();
-		if(null == user){
+		LoginUser loginUser = SessionUtils.getLoginUser();
+		if(null == loginUser){
 			String uid = SessionUtils.getCookie(request, SpConst.USER_IN_COOKIE);
 			if(StringKit.isNotBlank(uid)){
-				user = userService.getUserById(Integer.valueOf(uid));
-				SessionUtils.setLoginUser(request.session(), user);
+				User user = userService.getUserById(Integer.valueOf(uid));
+				SessionUtils.setLoginUser(request.session(), new LoginUser(user));
 			} else {
 				response.removeCookie(SpConst.USER_IN_COOKIE);
 			}

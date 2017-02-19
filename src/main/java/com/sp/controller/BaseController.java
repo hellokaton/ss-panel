@@ -1,6 +1,6 @@
 package com.sp.controller;
 
-import com.sp.model.User;
+import com.sp.dto.LoginUser;
 import com.sp.utils.SessionUtils;
 
 /**
@@ -14,7 +14,7 @@ public abstract class BaseController {
         return THEME + "/" + viewName;
     }
 
-    protected User user(){
+    protected LoginUser user(){
         return SessionUtils.getLoginUser();
     }
 

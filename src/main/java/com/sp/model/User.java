@@ -1,10 +1,8 @@
 package com.sp.model;
 
-import java.io.Serializable;
-import java.util.Date;
 import com.blade.jdbc.annotation.Table;
-import com.blade.kit.DateKit;
-import com.sp.ext.Functions;
+
+import java.io.Serializable;
 
 //
 @Table(name = "sp_user", pk = "id")
@@ -65,6 +63,35 @@ public class User implements Serializable {
 	private String reg_ip;
 
 	public User(){}
+
+	public User(Integer id, String user_name, String email, String pass, String passwd, Integer t, Integer u, Integer d, Integer transfer_enable, Integer port, String protocol, String obfs, Integer switched, Integer enable, Integer type, Integer last_get_gift_time, Integer last_check_in_time, Integer last_rest_pass_time, Integer reg_date, Integer invite_num, Integer is_admin, Integer ref_by, Integer expire_time, String method, Integer is_email_verify, String reg_ip) {
+		this.id = id;
+		this.user_name = user_name;
+		this.email = email;
+		this.pass = pass;
+		this.passwd = passwd;
+		this.t = t;
+		this.u = u;
+		this.d = d;
+		this.transfer_enable = transfer_enable;
+		this.port = port;
+		this.protocol = protocol;
+		this.obfs = obfs;
+		this.switched = switched;
+		this.enable = enable;
+		this.type = type;
+		this.last_get_gift_time = last_get_gift_time;
+		this.last_check_in_time = last_check_in_time;
+		this.last_rest_pass_time = last_rest_pass_time;
+		this.reg_date = reg_date;
+		this.invite_num = invite_num;
+		this.is_admin = is_admin;
+		this.ref_by = ref_by;
+		this.expire_time = expire_time;
+		this.method = method;
+		this.is_email_verify = is_email_verify;
+		this.reg_ip = reg_ip;
+	}
 
 	public Integer getId() {
 		return id;
@@ -274,15 +301,4 @@ public class User implements Serializable {
 		this.reg_ip = reg_ip;
 	}
 
-	/**
-	 * 检查是否已经签到
-	 * @return
-	 */
-	public boolean isAbleToCheckin(){
-		Integer ct = Integer.valueOf(Functions.config("checkinTime"));
-		if(last_check_in_time + ct < DateKit.getCurrentUnixTime()){
-			return true;
-		}
-		return false;
-	}
 }

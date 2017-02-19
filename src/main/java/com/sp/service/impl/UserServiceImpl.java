@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int getLastPort() {
-        String sql = "select port from ss_user order by port desc limit 1";
+        String sql = "select port from sp_user order by port desc limit 1";
         Integer port = activeRecord.one(Integer.class, sql);
         if(null == port){
             port = 1024;
@@ -70,4 +70,5 @@ public class UserServiceImpl implements UserService {
             activeRecord.insert(user);
         }
     }
+
 }

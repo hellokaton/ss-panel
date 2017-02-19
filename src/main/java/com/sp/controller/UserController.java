@@ -8,18 +8,19 @@ import com.blade.kit.EncrypKit;
 import com.blade.kit.StringKit;
 import com.blade.kit.json.JSONKit;
 import com.blade.kit.json.JSONObject;
-import com.blade.mvc.annotation.Controller;
-import com.blade.mvc.annotation.JSON;
-import com.blade.mvc.annotation.PathParam;
-import com.blade.mvc.annotation.Route;
+import com.blade.mvc.annotation.*;
 import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.http.wrapper.Session;
 import com.sp.config.SpConst;
+import com.sp.dto.LoginUser;
 import com.sp.ext.Functions;
 import com.sp.ext.Result;
-import com.sp.model.*;
+import com.sp.model.InviteCode;
+import com.sp.model.Node;
+import com.sp.model.TrafficLog;
+import com.sp.model.User;
 import com.sp.service.*;
 import com.sp.utils.SessionUtils;
 import com.sp.utils.Utils;
@@ -142,22 +143,25 @@ public class UserController extends BaseController {
 
     @Route(value = "password", method = HttpMethod.POST)
     @JSON
-    public Result updatePassword(Request request) {
-        User user = this.user();
-        String oldpwd = request.query("oldpwd");
-        String pwd = request.query("pwd");
-        String repwd = request.query("repwd");
+    public Result updatePassword(@QueryParam String oldpwd,
+                                 @QueryParam String pwd,
+                                 @QueryParam String repwd) {
 
-        if(!EncrypKit.md5(oldpwd).equals(user.getPass())){
+        User user = this.user();
+        if(StringKit.isBlank(oldpwd) || !EncrypKit.md5(oldpwd).equals(user.getPass())){
             return Result.fail("旧密码错误");
         }
 
-        if(!pwd.equals(repwd)){
-            return Result.fail("两次输入不符合");
+        if(StringKit.isBlank(pwd)){
+            return Result.fail("请输入新密码");
         }
 
         if(pwd.length() < 8){
             return Result.fail("密码太短啦");
+        }
+
+        if(!pwd.equals(repwd)){
+            return Result.fail("两次输入不符合");
         }
 
         String hashPwd = EncrypKit.md5(pwd);
@@ -240,7 +244,7 @@ public class UserController extends BaseController {
     @Route(value = "checkin", method = HttpMethod.POST)
     @JSON
     public Result doCheckin(Request request) {
-        User user = this.user();
+        LoginUser user = this.user();
         if(!user.isAbleToCheckin()){
             return Result.ok("您似乎已经签到过了...");
         }

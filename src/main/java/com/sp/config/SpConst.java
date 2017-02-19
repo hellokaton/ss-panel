@@ -17,7 +17,7 @@ public class SpConst {
 
     public static String SITE_URL;
 
-    public static String AES_SALT;
+    public static String AES_SALT = "0123456789abcdef";
 
     public static Config config;
 

@@ -44,7 +44,7 @@
                                 <div class="progress progress-striped">
                                     <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40"
                                          aria-valuemin="0" aria-valuemax="100"
-                                         style="width: ${user.trafficUsagePercent}%">
+                                         style="width: ${login_user.trafficUsagePercent()}%">
                                         <span class="sr-only">Transfer</span>
                                     </div>
                                 </div>
@@ -52,11 +52,11 @@
                         </div>
                         <dl class="dl-horizontal">
                             <dt>总流量</dt>
-                            <dd>${login_user.enableTraffic}</dd>
+                            <dd>${login_user.enableTraffic()}</dd>
                             <dt>已用流量</dt>
-                            <dd>${login_user.usedTraffic}</dd>
+                            <dd>${login_user.usedTraffic()}</dd>
                             <dt>剩余流量</dt>
-                            <dd>${login_user.unusedTraffic}</dd>
+                            <dd>${login_user.unusedTraffic()}</dd>
                         </dl>
                     </div>
                     <!-- /.box-body -->
@@ -75,8 +75,8 @@
                     <div class="box-body">
                         <p> 每${config('checkinTime')}小时可以签到一次。</p>
 
-                        <p>上次签到时间：<code>${login_user.lastCheckInTime}</code></p>
-                        #if(login_user.isAbleToCheckin)
+                        <p>上次签到时间：<code>${login_user.lastCheckInTime()}</code></p>
+                        #if(login_user.isAbleToCheckin())
                         <p id="checkin-btn">
                             <button id="checkin" class="btn btn-success  btn-flat">签到</button>
                         </p>
@@ -108,7 +108,7 @@
                             <dt>自定义加密方式</dt>
                             <dd>${login_user.method}</dd>
                             <dt>上次使用</dt>
-                            <dd>${login_user.lastSsTime}</dd>
+                            <dd>${login_user.lastSsTime()}</dd>
                         </dl>
                     </div>
                     <!-- /.box-body -->

@@ -1,6 +1,7 @@
 package com.sp.controller;
 
 import com.blade.ioc.annotation.Inject;
+import com.blade.kit.DateKit;
 import com.blade.kit.EncrypKit;
 import com.blade.kit.PatternKit;
 import com.blade.kit.StringKit;
@@ -12,7 +13,9 @@ import com.blade.mvc.http.HttpMethod;
 import com.blade.mvc.http.Request;
 import com.blade.mvc.http.Response;
 import com.blade.mvc.http.wrapper.Session;
+import com.sp.config.SpConst;
 import com.sp.ext.Functions;
+import com.sp.dto.LoginUser;
 import com.sp.model.InviteCode;
 import com.sp.ext.Result;
 import com.sp.model.User;
@@ -88,7 +91,7 @@ public class AuthController extends BaseController {
             time = 3600 * 24 * 7;
         }
         LOGGER.info("login user {}", user.getId());
-        SessionUtils.setLoginUser(request.session(), user);
+        SessionUtils.setLoginUser(request.session(), new LoginUser(user));
         SessionUtils.setLoginCookie(response, user.getId(), time);
 
         return Result.ok("欢迎回来");
@@ -136,7 +139,7 @@ public class AuthController extends BaseController {
             return Result.fail(EmailUsed, "邮箱已经被注册了");
         }
 
-        if(Functions.config("emailVerifyEnabled").equals("true") &&
+        if(SpConst.config.getBoolean("emailVerifyEnabled", false) &&
                 !emailVerifyService.checkVerifyCode(email, verifycode)){
             return Result.fail("邮箱验证代码不正确");
         }
@@ -152,6 +155,7 @@ public class AuthController extends BaseController {
         temp.setPass(EncrypKit.md5(passwd));
         temp.setPasswd(StringKit.getRandomChar(6));
         temp.setPort(userService.getLastPort() + 1);
+        temp.setReg_date(DateKit.getCurrentUnixTime());
         temp.setT(0);
         temp.setU(0);
         temp.setD(0);
