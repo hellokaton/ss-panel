@@ -8,6 +8,7 @@ public class Result {
     private int ret;
     private int error_code;
     private String msg;
+    private Object data;
 
     public Result(int ret) {
         this.ret = ret;
@@ -51,6 +52,15 @@ public class Result {
 
     public void setError_code(int error_code) {
         this.error_code = error_code;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public Result setData(Object data) {
+        this.data = data;
+        return this;
     }
 
     public static Result ok(){
