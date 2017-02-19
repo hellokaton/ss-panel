@@ -86,4 +86,5 @@ public class UserServiceImpl implements UserService {
             activeRecord.delete(User.class, id);
         }
     }
+
 }

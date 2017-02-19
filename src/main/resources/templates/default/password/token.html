@@ -8,6 +8,7 @@
         <p class="login-box-msg">重置密码</p>
 
         <form>
+            <input type="hidden" id="token" value="${token}"/>
             <div class="form-group has-feedback">
                 <input type="password" id="password" class="form-control" placeholder="在这里输入新密码"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -57,9 +58,10 @@
         function reset(){
             $.ajax({
                 type:"POST",
-                url:"/password/token/{$token}",
+                url:"/password/token",
                 dataType:"json",
                 data:{
+                    token: $("#token").val(),
                     password: $("#password").val(),
                     repasswd: $("#repasswd").val(),
                 },

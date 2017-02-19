@@ -24,4 +24,5 @@ public interface UserService {
     Paginator<User> getUsers(Take take);
 
     void delete(Integer id);
+
 }

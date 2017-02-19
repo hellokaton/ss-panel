@@ -17,6 +17,7 @@ public class ConfigLoad implements BaseConfig {
     public void config(Configuration configuration) {
         com.blade.kit.base.Config config = configuration.config();
         SpConst.config = config;
+        SpConst.SITE_URL = config.get("app.baseUrl");
         SpConst.MAIL_HOST = config.get("mail.smtp.host");
         SpConst.MAIL_USER = config.get("mail.user");
         SpConst.MAIL_USERNAME = config.get("mail.from");

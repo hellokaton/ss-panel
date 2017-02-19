@@ -40,6 +40,11 @@
             <version>0.0.8</version>
         </dependency>
         <dependency>
+            <groupId>com.bladejava</groupId>
+            <artifactId>blade-patchca</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>${druid.version}</version>

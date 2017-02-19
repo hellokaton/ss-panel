@@ -161,7 +161,7 @@ public class UserController extends BaseController {
             return Result.fail("请输入新密码");
         }
 
-        if (pwd.length() < 8) {
+        if (pwd.length() < 6) {
             return Result.fail("密码太短啦");
         }
 

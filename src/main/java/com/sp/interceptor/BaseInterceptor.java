@@ -25,9 +25,11 @@ public class BaseInterceptor implements Interceptor {
 	
 	@Override
 	public boolean before(Request request, Response response) {
-		
+
+		String uri = request.uri();
+
 		LOGGE.info("UA >>> " + request.userAgent());
-		LOGGE.info("用户访问地址 >>> " + request.raw().getRequestURI() + ", 来路地址  >>> " + Utils.getIpAddr(request));
+		LOGGE.info("用户访问地址:{} 来路地址:{}", uri, Utils.getIpAddr(request));
 
 		LoginUser loginUser = SessionUtils.getLoginUser();
 		if(null == loginUser){
@@ -37,6 +39,13 @@ public class BaseInterceptor implements Interceptor {
 				SessionUtils.setLoginUser(request.session(), new LoginUser(user));
 			} else {
 				response.removeCookie(SpConst.USER_IN_COOKIE);
+			}
+		}
+
+		if(uri.startsWith("/user") || uri.startsWith("/admin")){
+			if(null == loginUser){
+				response.go("/auth/login");
+				return false;
 			}
 		}
 		return true;
