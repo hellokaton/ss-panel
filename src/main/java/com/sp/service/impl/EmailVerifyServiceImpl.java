@@ -23,9 +23,15 @@ public class EmailVerifyServiceImpl implements EmailVerifyService {
     @Override
     public boolean checkVerifyCode(String email, String verifycode) {
         if (StringKit.isNotBlank(email) && StringKit.isNotBlank(verifycode)) {
-            EmailVerify emailVerify = new EmailVerify();
-            emailVerify.setEmail(email);
-
+            EmailVerify temp = new EmailVerify();
+            temp.setEmail(email);
+            EmailVerify emailVerify = activeRecord.one(temp);
+            if (null == emailVerify || emailVerify.getExpire_at() < DateKit.getCurrentUnixTime()
+                    || !emailVerify.getToken().equals(verifycode)) {
+                return false;
+            }
+            activeRecord.delete(EmailVerify.class, emailVerify.getId());
+            return true;
         }
         return false;
     }
