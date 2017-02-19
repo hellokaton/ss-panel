@@ -80,5 +80,10 @@ public class ConfigServiceImpl implements ConfigService {
 			throw e;
 		}
 	}
-		
+
+	@Override
+	public String getConfig(String key) {
+		String sql = "select `value` from sp_config where `key` = ?";
+		return activeRecord.one(String.class, sql, key);
+	}
 }

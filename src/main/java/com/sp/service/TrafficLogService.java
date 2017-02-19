@@ -20,5 +20,6 @@ public interface TrafficLogService {
 	void save(TrafficLog trafficLog) throws Exception;
 	
 	void delete(Integer id) throws Exception;
-		
+
+	Paginator<TrafficLog> getLogs(Take take);
 }

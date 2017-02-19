@@ -20,5 +20,6 @@ public interface ConfigService {
 	void save(Config config) throws Exception;
 	
 	void delete(Integer id) throws Exception;
-		
+
+	String getConfig(String key);
 }

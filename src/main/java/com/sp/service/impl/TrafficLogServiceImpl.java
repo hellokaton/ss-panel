@@ -80,5 +80,12 @@ public class TrafficLogServiceImpl implements TrafficLogService {
 			throw e;
 		}
 	}
-		
+
+	@Override
+	public Paginator<TrafficLog> getLogs(Take take) {
+		if(null != take){
+			return activeRecord.page(take);
+		}
+		return null;
+	}
 }

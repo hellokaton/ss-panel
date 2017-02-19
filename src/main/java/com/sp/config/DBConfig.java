@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Component
-@Order(sort = 1)
+@Order(sort = 2)
 public class DBConfig implements BaseConfig {
 
     public ActiveRecord activeRecord;

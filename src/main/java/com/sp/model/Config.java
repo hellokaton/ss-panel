@@ -16,9 +16,9 @@ public class Config implements Serializable {
 
 	private String value;
 
-	private Date created_at;
+	private Integer created_at;
 
-	private Date updated_at;
+	private Integer updated_at;
 
 	public Config(){}
 
@@ -46,19 +46,19 @@ public class Config implements Serializable {
 		this.value = value;
 	}
 
-	public Date getCreated_at() {
+	public Integer getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(Integer created_at) {
 		this.created_at = created_at;
 	}
 
-	public Date getUpdated_at() {
+	public Integer getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Date updated_at) {
+	public void setUpdated_at(Integer updated_at) {
 		this.updated_at = updated_at;
 	}
 

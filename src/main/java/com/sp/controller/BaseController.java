@@ -1,0 +1,21 @@
+package com.sp.controller;
+
+import com.sp.model.User;
+import com.sp.utils.SessionUtils;
+
+/**
+ * Created by biezhi on 2017/2/19.
+ */
+public abstract class BaseController {
+
+    public static String THEME = "default";
+
+    protected String render(String viewName) {
+        return THEME + "/" + viewName;
+    }
+
+    protected User user(){
+        return SessionUtils.getLoginUser();
+    }
+
+}
