@@ -1,4 +1,4 @@
-package com.sp.model;
+package com.sp.ext;
 
 /**
  * Created by biezhi on 2017/2/19.

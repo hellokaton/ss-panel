@@ -1,7 +1,6 @@
 package com.sp.controller;
 
 import com.blade.ioc.annotation.Inject;
-import com.blade.ioc.annotation.Service;
 import com.blade.kit.EncrypKit;
 import com.blade.kit.PatternKit;
 import com.blade.kit.StringKit;
@@ -15,7 +14,7 @@ import com.blade.mvc.http.Response;
 import com.blade.mvc.http.wrapper.Session;
 import com.sp.ext.Functions;
 import com.sp.model.InviteCode;
-import com.sp.model.Result;
+import com.sp.ext.Result;
 import com.sp.model.User;
 import com.sp.service.ConfigService;
 import com.sp.service.EmailVerifyService;

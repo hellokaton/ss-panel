@@ -3,17 +3,16 @@ package com.sp.ext;
 import com.blade.kit.DateKit;
 import com.blade.kit.StringKit;
 import com.blade.kit.base.Config;
+import com.sp.config.SpConst;
 
 /**
  * Created by biezhi on 2017/2/19.
  */
 public class Functions {
 
-    public static Config config;
-
     public static String config(String key){
         if(StringKit.isNotBlank(key)){
-            return config.get("app." + key);
+            return SpConst.config.get("app." + key);
         }
         return "";
     }

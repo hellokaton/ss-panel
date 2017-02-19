@@ -1,5 +1,9 @@
 package com.sp.config;
 
+import com.blade.kit.base.Config;
+
+import java.util.Map;
+
 /**
  * Created by biezhi on 2017/2/19.
  */
@@ -14,6 +18,8 @@ public class SpConst {
     public static String SITE_URL;
 
     public static String AES_SALT;
+
+    public static Config config;
 
     /**
      * 邮件配置
