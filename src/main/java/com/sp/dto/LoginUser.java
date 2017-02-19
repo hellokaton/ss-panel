@@ -1,7 +1,7 @@
 package com.sp.dto;
 
 import com.blade.kit.DateKit;
-import com.sp.config.SpConst;
+import com.sp.ext.Functions;
 import com.sp.model.User;
 
 /**
@@ -49,31 +49,29 @@ public class LoginUser extends User {
         return percent;
     }
 
-    public double enableTraffic(){
-        return 1;
+    public String enableTraffic(){
+        return Functions.flowAutoShow(this.getTransfer_enable());
     }
 
-    public double usedTraffic(){
-        return 1;
+    public String usedTraffic(){
+        return Functions.flowAutoShow(this.getU() + this.getD());
     }
 
-    public double unusedTraffic(){
-        return 1;
+    public String unusedTraffic(){
+        int total = this.getU() + this.getD();
+        int transfer_enable = this.getTransfer_enable();
+        return Functions.flowAutoShow(transfer_enable - total);
     }
 
     public String lastCheckInTime(){
         if(this.getLast_check_in_time() == 0){
             return "从未签到";
         }
-        return DateKit.formatDateByUnixTime(getLast_check_in_time(), "yyyy-MM-dd HH:mm:ss");
-    }
-
-    public boolean isAdmin(){
-        return this.getIs_admin() == 1;
+        return DateKit.formatDateByUnixTime(this.getLast_check_in_time(), "yyyy-MM-dd HH:mm:ss");
     }
 
     public boolean isAbleToCheckin(){
-        Integer ct = SpConst.config.getInt("checkinTime", 3600 * 24);
+        Integer ct = Integer.valueOf(Functions.config("checkinTime"));
         if(this.getLast_check_in_time() + ct < DateKit.getCurrentUnixTime()){
             return true;
         }
@@ -87,7 +85,4 @@ public class LoginUser extends User {
         return DateKit.formatDateByUnixTime(getT(), "yyyy-MM-dd HH:mm:ss");
     }
 
-    public String gravatar(){
-        return "http://img.blog.csdn.net/20151123180346505";
-    }
 }

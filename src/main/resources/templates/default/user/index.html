@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'ucenter'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -73,7 +73,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <p> 每${config('checkinTime')}小时可以签到一次。</p>
+                        <p> 每${config("checkinTime")}小时可以签到一次。</p>
 
                         <p>上次签到时间：<code>${login_user.lastCheckInTime()}</code></p>
                         #if(login_user.isAbleToCheckin())

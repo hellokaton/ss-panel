@@ -24,8 +24,11 @@ import com.sp.model.User;
 import com.sp.service.*;
 import com.sp.utils.SessionUtils;
 import com.sp.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +36,8 @@ import java.util.List;
  */
 @Controller(value = "user")
 public class UserController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Inject
     private ConfigService configService;
@@ -54,8 +59,8 @@ public class UserController extends BaseController {
 
     @Route(value = "/", method = HttpMethod.GET)
     public String index(Request request) {
-        String msg = configService.getConfig("user-index");
-        if(StringKit.isBlank(msg)){
+        String msg = configService.getConfig("user_index");
+        if (StringKit.isBlank(msg)) {
             msg = "在后台修改用户中心公告...";
         }
         request.attribute("msg", msg);
@@ -76,7 +81,7 @@ public class UserController extends BaseController {
     public String nodeInfo(@PathParam Integer id, Request request) {
         Node node = nodeService.byId(id);
         User user = this.user();
-        if(null == node){
+        if (null == node) {
             return "";
         }
         JSONObject ary = new JSONObject();
@@ -84,7 +89,7 @@ public class UserController extends BaseController {
         ary.put("server_port", user.getPort());
         ary.put("password", user.getPasswd());
         ary.put("method", node.getMethod());
-        if(node.getCustom_method()){
+        if (node.getCustom_method()) {
             ary.put("method", user.getMethod());
         }
 
@@ -127,11 +132,11 @@ public class UserController extends BaseController {
     public Result doInvite(Request request) {
         User user = this.user();
         int num = request.queryInt("num");
-        if(num < 1 || num > user.getInvite_num()){
+        if (num < 1 || num > user.getInvite_num()) {
             return Result.fail();
         }
         inviteCodeService.saveCodes(user.getId(), num, "");
-        user.setInvite_num( user.getInvite_num() - num );
+        user.setInvite_num(user.getInvite_num() - num);
         return Result.ok();
     }
 
@@ -148,19 +153,19 @@ public class UserController extends BaseController {
                                  @QueryParam String repwd) {
 
         User user = this.user();
-        if(StringKit.isBlank(oldpwd) || !EncrypKit.md5(oldpwd).equals(user.getPass())){
+        if (StringKit.isBlank(oldpwd) || !EncrypKit.md5(oldpwd).equals(user.getPass())) {
             return Result.fail("旧密码错误");
         }
 
-        if(StringKit.isBlank(pwd)){
+        if (StringKit.isBlank(pwd)) {
             return Result.fail("请输入新密码");
         }
 
-        if(pwd.length() < 8){
+        if (pwd.length() < 8) {
             return Result.fail("密码太短啦");
         }
 
-        if(!pwd.equals(repwd)){
+        if (!pwd.equals(repwd)) {
             return Result.fail("两次输入不符合");
         }
 
@@ -177,9 +182,9 @@ public class UserController extends BaseController {
     public Result updateSsPwd(Request request) {
         User user = this.user();
         String pwd = request.query("sspwd");
-        if(StringKit.isBlank(pwd)){
+        if (StringKit.isBlank(pwd)) {
             pwd = StringKit.getRandomChar(8);
-        } else if(pwd.length() < 5){
+        } else if (pwd.length() < 5) {
             return Result.fail("密码要大于4位或者留空生成随机密码");
         }
 
@@ -217,7 +222,7 @@ public class UserController extends BaseController {
         User user = this.user();
         Paginator<TrafficLog> paginator = trafficLogService.getLogs(new Take(TrafficLog.class).eq("user_id", user.getId()).orderby("id desc").page(page, 15));
         request.attribute("logs", paginator);
-        return this.render("user/sys");
+        return this.render("user/trafficlog");
     }
 
     @Route(value = "kill", method = HttpMethod.GET)
@@ -227,10 +232,24 @@ public class UserController extends BaseController {
 
     @Route(value = "kill", method = HttpMethod.POST)
     @JSON
-    public Result handleKill(Request request) {
+    public Result handleKill(Request request, Response response, @QueryParam String passwd) {
         User user = this.user();
-        String passwd = request.query("passwd");
-        return Result.ok();
+        if (StringKit.isBlank(passwd)) {
+            return Result.fail("密码不能为空");
+        }
+        if (!EncrypKit.md5(passwd).equals(user.getPass())) {
+            return Result.fail("密码输入错误");
+        }
+        try {
+            userService.delete(user.getId());
+            Session session = request.session();
+            SessionUtils.removeUser(session);
+            SessionUtils.removeCookie(response);
+        } catch (Exception e) {
+            LOGGER.error("注销失败", e);
+            return Result.fail("注销失败");
+        }
+        return Result.ok("您的帐号已经从我们的系统中删除.");
     }
 
     @Route(value = "logout", method = HttpMethod.GET)
@@ -245,11 +264,14 @@ public class UserController extends BaseController {
     @JSON
     public Result doCheckin(Request request) {
         LoginUser user = this.user();
-        if(!user.isAbleToCheckin()){
+        if (!user.isAbleToCheckin()) {
             return Result.ok("您似乎已经签到过了...");
         }
+
         int traffic = Utils.rand(Integer.valueOf(Functions.config("checkinMin")), Integer.valueOf(Functions.config("checkinMax")));
+
         int trafficToAdd = Utils.toMB(traffic);
+
         user.setTransfer_enable(user.getTransfer_enable() + trafficToAdd);
         User temp = new User();
         temp.setId(user.getId());
@@ -258,8 +280,8 @@ public class UserController extends BaseController {
         userService.update(temp);
 
         checkinLogService.save(user.getId(), trafficToAdd);
-
-        String msg = String.format("获得了 %s MB流量.", trafficToAdd);
+        user.setLast_check_in_time(DateKit.getCurrentUnixTime());
+        String msg = String.format("获得了 %s MB流量.", traffic);
         return Result.ok(msg);
     }
 

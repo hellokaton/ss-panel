@@ -47,13 +47,13 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="${login_user.gravatar()}" class="user-image" alt="User Image"/>
+                            <img src="${gavatar(login_user.email)}" class="user-image" alt="User Image"/>
                             <span class="hidden-xs">${login_user.user_name}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="${login_user.gravatar()}" class="img-circle" alt="User Image"/>
+                                <img src="${gavatar(login_user.email)}" class="img-circle" alt="User Image"/>
 
                                 <p>
                                     ${login_user.email}
@@ -84,7 +84,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="${login_user.gravatar()}" class="img-circle" alt="User Image"/>
+                    <img src="${gavatar(login_user.email)}" class="img-circle" alt="User Image"/>
                 </div>
                 <div class="pull-left info">
                     <p>${login_user.user_name}</p>
@@ -95,38 +95,38 @@
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li>
+                <li #if(active=='ucenter') class="active" #end>
                     <a href="/user">
                         <i class="fa fa-dashboard"></i> <span>用户中心</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='node') class="active" #end>
                     <a href="/user/node">
                         <i class="fa fa-sitemap"></i> <span>节点列表</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='profile') class="active" #end>
                     <a href="/user/profile">
                         <i class="fa fa-user"></i> <span>我的信息</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='trafficlog') class="active" #end>
                     <a href="/user/trafficlog">
-                        <i class="fa fa-history"></i> <span>流量记录</span>
+                        <i class="fa fa-history"></i> <span>流量记录${active}</span>
                     </a>
                 </li>
 
 
-                <li>
+                <li #if(active=='edit') class="active" #end>
                     <a href="/user/edit">
                         <i class="fa  fa-pencil"></i> <span>修改资料</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='invite') class="active" #end>
                     <a href="/user/invite">
                         <i class="fa fa-users"></i> <span>邀请好友</span>
                     </a>

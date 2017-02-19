@@ -1,8 +1,8 @@
 package com.sp.ext;
 
 import com.blade.kit.DateKit;
+import com.blade.kit.EncrypKit;
 import com.blade.kit.StringKit;
-import com.blade.kit.base.Config;
 import com.sp.config.SpConst;
 import com.sp.utils.Utils;
 
@@ -59,4 +59,10 @@ public class Functions {
     public static String flowAutoShow(int s){
         return Utils.flowAutoShow(s);
     }
+
+    public static String gavatar(String email){
+        String hash = EncrypKit.md5(email.trim().toLowerCase());
+        return "https://secure.gravatar.com/avatar/"+hash;
+    }
+
 }

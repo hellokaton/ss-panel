@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'profile'})
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
@@ -15,17 +15,15 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <i class="fa fa-user"></i>
-
                         <h3 class="box-title">我的帐号</h3>
                     </div>
                     <div class="box-body">
-                        <dl class="dl-horizontal">
+                        <dl class="">
                             <dt>用户名</dt>
                             <dd>${login_user.user_name}</dd>
                             <dt>邮箱</dt>
                             <dd>${login_user.email}</dd>
                         </dl>
-
                     </div>
                     <div class="box-footer">
                         <a class="btn btn-danger btn-sm" href="kill">删除我的账户</a>
