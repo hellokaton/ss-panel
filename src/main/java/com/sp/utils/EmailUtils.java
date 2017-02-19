@@ -1,6 +1,7 @@
 package com.sp.utils;
 
 import com.sp.config.SpConst;
+import com.sp.exception.TipException;
 import com.sp.ext.Envelope;
 import jetbrick.template.JetEngine;
 import jetbrick.template.JetTemplate;
@@ -21,23 +22,23 @@ public final class EmailUtils {
 
     private static JetEngine engine = JetEngine.create();
 
-    public static String getHtml(String tpl, Map<String, Object> ary){
+    public static String getHtml(String tpl, Map<String, Object> ary) {
         // 2. 获取一个模板对象 (从默认的 classpath 下面)
         JetTemplate template = engine.getTemplate(tpl);
         StringWriter writer = new StringWriter();
         Map<String, Object> context = new HashMap<>();
         context.put("config", SpConst.config.asMap());
         context.put("analyticsCode", "");
-        if(null != ary && ary.size() > 0){
+        if (null != ary && ary.size() > 0) {
             context.putAll(ary);
         }
         template.render(context, writer);
         return writer.toString();
     }
 
-    public static void send(Envelope envelope){
-        try {
-            if(null != envelope){
+    public static void send(final Envelope envelope) {
+        if (null != envelope) {
+            try {
                 // Create the email message
                 HtmlEmail email = new HtmlEmail();
                 email.setHostName(SpConst.MAIL_HOST);
@@ -51,9 +52,11 @@ public final class EmailUtils {
                 String html = getHtml(envelope.getTpl(), envelope.getCry());
                 email.setHtmlMsg(html);
                 email.send();
+            } catch (Exception e) {
+                LOGGER.error("邮件发送失败", e);
+                throw new TipException(e);
             }
-        } catch (Exception e){
-            LOGGER.error("邮件发送失败", e);
         }
+
     }
 }

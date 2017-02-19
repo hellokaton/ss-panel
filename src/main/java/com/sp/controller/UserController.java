@@ -130,7 +130,7 @@ public class UserController extends BaseController {
         if(num < 1 || num > user.getInvite_num()){
             return Result.fail();
         }
-        inviteCodeService.saveCodes(user.getId(), num);
+        inviteCodeService.saveCodes(user.getId(), num, "");
         user.setInvite_num( user.getInvite_num() - num );
         return Result.ok();
     }
@@ -169,7 +169,7 @@ public class UserController extends BaseController {
         temp.setId(user.getId());
         temp.setPass(hashPwd);
         userService.update(temp);
-        return Result.ok("ok");
+        return Result.ok("密码修改成功");
     }
 
     @Route(value = "sspwd", method = HttpMethod.POST)

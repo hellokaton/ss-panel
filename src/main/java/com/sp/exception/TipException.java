@@ -1,6 +1,6 @@
 package com.sp.exception;
 
-public class TipException extends Exception {
+public class TipException extends RuntimeException {
 
     public TipException() {
     }

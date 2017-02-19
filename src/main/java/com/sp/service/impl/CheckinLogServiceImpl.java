@@ -3,6 +3,8 @@ package com.sp.service.impl;
 import com.blade.ioc.annotation.Inject;
 import com.blade.ioc.annotation.Service;
 import com.blade.jdbc.ActiveRecord;
+import com.blade.jdbc.core.Take;
+import com.blade.jdbc.model.Paginator;
 import com.blade.kit.DateKit;
 import com.sp.model.CheckinLog;
 import com.sp.service.CheckinLogService;
@@ -22,5 +24,13 @@ public class CheckinLogServiceImpl implements CheckinLogService {
 			checkinLog.setCheckin_at(DateKit.getCurrentUnixTime());
 			activeRecord.insert(checkinLog);
 		}
+	}
+
+	@Override
+	public Paginator<CheckinLog> getLogs(Take take) {
+		if(null != take){
+			return activeRecord.page(take);
+		}
+		return null;
 	}
 }

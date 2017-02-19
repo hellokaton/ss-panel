@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'config'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -36,32 +36,28 @@
                         <form role="form">
                             <div class="form-group">
                                 <label>网站名</label>
-                                <input type="text" class="form-control" placeholder="Enter ..." id="app-name"
-                                       value="{$conf['app-name']}">
+                                <input type="text" class="form-control" placeholder="请输入网站名" id="app-name"
+                                       value="${config.app_name}">
                             </div>
 
                             <div class="form-group">
                                 <label>统计代码</label>
-                                <textarea class="form-control" id="analytics-code" rows="3"
-                                          placeholder="Enter ...">${conf("analytics-code")}</textarea>
+                                <textarea class="form-control" id="analytics-code" rows="3" placeholder="请输入统计代码">${config.analytics_code ?! ''}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label>邀请页公告</label>
-                                <textarea class="form-control" id="home-code" rows="3"
-                                          placeholder="Enter ...">${conf("home-code")}</textarea>
+                                <textarea class="form-control" id="home-code" rows="3" placeholder="请输入邀请页面公告">${config.home_code}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label>用户中心公告</label>
-                                <textarea class="form-control" id="user-index" rows="3"
-                                          placeholder="Enter ...">${conf("user-index")}</textarea>
+                                <textarea class="form-control" id="user-index" rows="3" placeholder="请输入用户中心公告">${config.user_index}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label>用户节点公告</label>
-                                <textarea class="form-control" id="user-node" rows="3"
-                                          placeholder="Enter ...">${conf("user-node")}</textarea>
+                                <textarea class="form-control" id="user-node" rows="3" placeholder="请输入用户节点公告">${config.user_node}</textarea>
                             </div>
 
                         </form>

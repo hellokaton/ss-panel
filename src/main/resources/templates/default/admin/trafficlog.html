@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'trafficlog'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -23,7 +23,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body table-responsive no-padding">
-                        {$logs->render()}
+                        #if(null != logs)
                         <table class="table table-hover">
                             <tr>
                                 <th>ID</th>
@@ -34,15 +34,15 @@
                                 <th>结算流量</th>
                                 <th>记录时间</th>
                             </tr>
-                            #for(log : logs)
+                            #for(log : logs.list)
                             <tr>
                                 <td>#${log.id}</td>
-                                <td>${log.user.user_name}</td>
-                                <td>${log.node.name}</td>
+                                <td>${log.user_id}</td>
+                                <td>${log.node_id}</td>
                                 <td>${log.rate}</td>
-                                <td>${log.totalUsed}</td>
+                                <td>${flowAutoShow(log.u+log.d)}</td>
                                 <td>${log.traffic}</td>
-                                <td>${log.logTime}</td>
+                                <td>${fmtdate(log.log_time)}</td>
                             </tr>
                             #end
                         </table>

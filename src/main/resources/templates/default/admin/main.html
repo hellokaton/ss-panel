@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{$config["appName"]}</title>
+    <title>${config("appName")}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
     <link href="/static/public/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -55,7 +55,7 @@
                                 <img src="${login_user.gravatar()}" class="img-circle" alt="User Image"/>
                                 <p>
                                     ${login_user.email}
-                                    <small>加入时间：${fmtdate(login_user.regDate)}</small>
+                                    <small>加入时间：${fmtdate(login_user.reg_date)}</small>
                                 </p>
                             </li>
                             <li class="user-footer">
@@ -93,49 +93,49 @@
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-                <li>
+                <li #if(active=='index') class="active" #end>
                     <a href="/admin">
                         <i class="fa fa-dashboard"></i> <span>管理中心</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='config') class="active" #end>
                     <a href="/admin/config">
                         <i class="fa fa-cubes"></i> <span>站点配置</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='node') class="active" #end>
                     <a href="/admin/node">
                         <i class="fa fa-sitemap"></i> <span>节点管理</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='user') class="active" #end>
                     <a href="/admin/user">
                         <i class="fa fa-user"></i> <span>用户管理</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='invite') class="active" #end>
                     <a href="/admin/invite">
                         <i class="fa fa-users"></i> <span>邀请管理</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='trafficlog') class="active" #end>
                     <a href="/admin/trafficlog">
                         <i class="fa fa-history"></i> <span>流量记录</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='checkinlog') class="active" #end>
                     <a href="/admin/checkinlog">
                         <i class="fa  fa-check-square"></i> <span>签到日志</span>
                     </a>
                 </li>
 
-                <li>
+                <li #if(active=='ucenter') class="active" #end>
                     <a href="/user">
                         <i class="fa fa-reply-all"></i> <span>用户中心</span>
                     </a>

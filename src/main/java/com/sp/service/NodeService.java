@@ -13,4 +13,12 @@ public interface NodeService {
     List<Node> getNodes(Take take);
 
     Node byId(Integer id);
+
+    List<Node> all();
+
+    void save(Node node);
+
+    void update(Node node);
+
+    void delete(Integer id);
 }

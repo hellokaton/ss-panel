@@ -4,6 +4,7 @@ import com.blade.kit.DateKit;
 import com.blade.kit.StringKit;
 import com.blade.kit.base.Config;
 import com.sp.config.SpConst;
+import com.sp.utils.Utils;
 
 /**
  * Created by biezhi on 2017/2/19.
@@ -55,4 +56,7 @@ public class Functions {
         return "";
     }
 
+    public static String flowAutoShow(int s){
+        return Utils.flowAutoShow(s);
+    }
 }

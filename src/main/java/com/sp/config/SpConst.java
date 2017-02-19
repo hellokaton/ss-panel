@@ -15,7 +15,7 @@ public class SpConst {
 
     public static final String JC_REFERRER_COOKIE = "JC_REFERRER_COOKIE";
 
-    public static String SITE_URL;
+    public static String SITE_URL = "";
 
     public static String AES_SALT = "0123456789abcdef";
 

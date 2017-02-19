@@ -1,5 +1,4 @@
-
-#include("../main.html")
+#include("../main.html", {active:'user'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -48,22 +47,36 @@
                                 <th>邀请者</th>
                                 <th>操作</th>
                             </tr>
-                            #for(user : users)
+                            #for(user : users.list)
                             <tr>
                                 <td>#${user.id}</td>
                                 <td><abbr title="${user.user_name}">${user.email}</abbr></td>
                                 <td>${user.port}</td>
                                 <td>${user.enable}</td>
                                 <td>${user.method}</td>
-                                <td>${user.usedTraffic}/${user.enableTraffic}</td>
-                                <td>${user.lastSsTime}</td>
-                                <td>${user.lastCheckInTime}</td>
-                                <th>${user.reg_date}</th>
+                                <td>${flowAutoShow(user.u+user.d)}/${flowAutoShow(user.transfer_enable)}</td>
+                                <td>
+                                    #if(user.t == 0)
+                                    从未使用过
+                                    #else
+                                    ${fmtdate(user.t, 'yyyy-MM-dd HH:mm:ss')}
+                                    #end
+                                </td>
+                                <td>
+                                    #if(user.last_check_in_time == 0)
+                                    从未签到
+                                    #else
+                                    ${fmtdate(user.last_check_in_time, 'yyyy-MM-dd HH:mm:ss')}
+                                    #end
+                                </td>
+                                <th>${fmtdate(user.reg_date)}</th>
                                 <th>${user.reg_ip}</th>
                                 <th>${user.ref_by}</th>
                                 <td>
+                                    #if(user.is_admin == 0)
                                     <a class="btn btn-info btn-sm" href="/admin/user/${user.id}/edit">编辑</a>
                                     <a class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">删除</a>
+                                    #end
                                 </td>
                             </tr>
                             #end

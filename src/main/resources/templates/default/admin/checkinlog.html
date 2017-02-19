@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'checkinlog'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -23,12 +23,12 @@
                                 <th>获得流量</th>
                                 <th>签到时间</th>
                             </tr>
-                            #for(log : logs)
+                            #for(log : logs.list)
                             <tr>
                                 <td>#${log.id}</td>
-                                <td>${log.user.user_name}</td>
+                                <td>${log.user_id}</td>
                                 <td>${log.traffic}</td>
-                                <td>${log.CheckInTime}</td>
+                                <td>${fmtdate(log.checkin_at)}</td>
                             </tr>
                             #end
                         </table>

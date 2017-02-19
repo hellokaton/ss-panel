@@ -33,4 +33,30 @@ public class NodeServiceImpl implements NodeService {
         }
         return null;
     }
+
+    @Override
+    public List<Node> all() {
+        return activeRecord.list(new Node());
+    }
+
+    @Override
+    public void save(Node node) {
+        if(null != node){
+            activeRecord.insert(node);
+        }
+    }
+
+    @Override
+    public void update(Node node) {
+        if(null != node && null != node.getId()){
+            activeRecord.update(node);
+        }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if(null != id){
+            activeRecord.delete(Node.class, id);
+        }
+    }
 }

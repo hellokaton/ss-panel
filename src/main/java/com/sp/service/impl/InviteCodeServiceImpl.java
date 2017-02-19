@@ -30,9 +30,9 @@ public class InviteCodeServiceImpl implements InviteCodeService {
     }
 
     @Override
-    public void saveCodes(Integer user_id, int num) {
+    public void saveCodes(Integer user_id, int num, String prefix) {
         for(int i=0; i<num; i++){
-            String code = UUID.UU32();
+            String code = prefix + UUID.UU64();
             InviteCode inviteCode = new InviteCode();
             inviteCode.setCode(code);
             inviteCode.setUser_id(user_id);
@@ -57,4 +57,5 @@ public class InviteCodeServiceImpl implements InviteCodeService {
             activeRecord.delete(InviteCode.class, id);
         }
     }
+
 }

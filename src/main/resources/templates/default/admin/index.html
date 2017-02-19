@@ -1,4 +1,4 @@
-#include("./main.html")
+#include("./main.html", {active:'index'})
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -17,7 +17,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>${sts.getTotalUser}</h3>
+                        <h3>${sts.users}</h3>
 
                         <p>总用户</p>
                     </div>
@@ -31,7 +31,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>${sts.getCheckinUser}</h3>
+                        <h3>${sts.checkInUsers}</h3>
 
                         <p>签到用户</p>
                     </div>
@@ -45,8 +45,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>${sts.getOnlineUser(3600)}</h3>
-
+                        <h3>${sts.online_users}</h3>
                         <p>前一小时在线用户</p>
                     </div>
                     <div class="icon">
@@ -62,7 +61,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>${sts.getTotalNode}</h3>
+                        <h3>${sts.nodes}</h3>
 
                         <p>节点数</p>
                     </div>
@@ -76,7 +75,7 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>${sts.getTrafficUsage}</h3>
+                        <h3>${sts.trafficUsage}</h3>
 
                         <p>产生流量</p>
                     </div>

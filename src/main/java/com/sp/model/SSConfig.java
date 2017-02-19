@@ -6,21 +6,21 @@ import com.blade.jdbc.annotation.Table;
 
 //
 @Table(name = "sp_config", pk = "id")
-public class Config implements Serializable {
+public class SSConfig implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 
-	private String key;
+	private String key_;
 
-	private String value;
+	private String value_;
 
 	private Integer created_at;
 
 	private Integer updated_at;
 
-	public Config(){}
+	public SSConfig(){}
 
 	public Integer getId() {
 		return id;
@@ -30,20 +30,20 @@ public class Config implements Serializable {
 		this.id = id;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKey_() {
+		return key_;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKey_(String key_) {
+		this.key_ = key_;
 	}
 
-	public String getValue() {
-		return value;
+	public String getValue_() {
+		return value_;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setValue_(String value_) {
+		this.value_ = value_;
 	}
 
 	public Integer getCreated_at() {

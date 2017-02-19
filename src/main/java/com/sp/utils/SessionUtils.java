@@ -57,9 +57,9 @@ public final class SessionUtils {
             try {
                 String val = Utils.encrypt(uid.toString(), SpConst.AES_SALT);
                 boolean isSSL = SpConst.SITE_URL.startsWith("https");
-                response.cookie("/", "sid", val, DateKit.getCurrentUnixTime() + time, isSSL);
+                response.cookie("/", SpConst.USER_IN_COOKIE, val, DateKit.getCurrentUnixTime() + time, isSSL);
             } catch (Exception e){
-
+                e.printStackTrace();
             }
         }
     }

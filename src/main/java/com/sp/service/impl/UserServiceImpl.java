@@ -4,6 +4,7 @@ import com.blade.ioc.annotation.Inject;
 import com.blade.ioc.annotation.Service;
 import com.blade.jdbc.ActiveRecord;
 import com.blade.jdbc.core.Take;
+import com.blade.jdbc.model.Paginator;
 import com.blade.kit.DateKit;
 import com.blade.kit.StringKit;
 import com.sp.model.User;
@@ -71,4 +72,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public Paginator<User> getUsers(Take take) {
+        if(null != take){
+            return activeRecord.page(take);
+        }
+        return null;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if(null != id){
+            activeRecord.delete(User.class, id);
+        }
+    }
 }

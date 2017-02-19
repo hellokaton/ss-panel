@@ -1,5 +1,7 @@
 package com.sp.service;
 
+import com.blade.jdbc.core.Take;
+import com.blade.jdbc.model.Paginator;
 import com.sp.model.User;
 
 /**
@@ -18,4 +20,8 @@ public interface UserService {
     int getLastPort();
 
     void save(User user);
+
+    Paginator<User> getUsers(Take take);
+
+    void delete(Integer id);
 }

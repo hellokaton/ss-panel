@@ -12,7 +12,7 @@ public interface InviteCodeService {
 
     List<InviteCode> getCodes(Take take);
 
-    void saveCodes(Integer user_id, int num);
+    void saveCodes(Integer user_id, int num, String prefix);
 
     InviteCode byCode(String code);
 
