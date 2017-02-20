@@ -1,6 +1,7 @@
 package com.sp.interceptor;
 
 import com.blade.ioc.annotation.Inject;
+import com.blade.kit.PatternKit;
 import com.blade.kit.StringKit;
 import com.blade.mvc.annotation.Intercept;
 import com.blade.mvc.http.Request;
@@ -34,7 +35,7 @@ public class BaseInterceptor implements Interceptor {
 		LoginUser loginUser = SessionUtils.getLoginUser();
 		if(null == loginUser){
 			String uid = SessionUtils.getCookie(request, SpConst.USER_IN_COOKIE);
-			if(StringKit.isNotBlank(uid)){
+			if(StringKit.isNotBlank(uid) && PatternKit.isNumber(uid)){
 				User user = userService.getUserById(Integer.valueOf(uid));
 				SessionUtils.setLoginUser(request.session(), new LoginUser(user));
 			} else {
