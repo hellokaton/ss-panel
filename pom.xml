@@ -17,26 +17,11 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.bladejava</groupId>
-            <artifactId>blade-kit</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.21</version>
-        </dependency>
         <!-- mvc -->
         <dependency>
             <groupId>com.bladejava</groupId>
             <artifactId>blade-core</artifactId>
-            <version>1.7.1-alpha</version>
+            <version>1.7.0</version>
         </dependency>
         <!-- 数据库操作 -->
         <dependency>
@@ -69,7 +54,7 @@
         <dependency>
             <groupId>com.bladejava</groupId>
             <artifactId>blade-embed-jetty</artifactId>
-            <version>0.1.0</version>
+            <version>0.0.9</version>
         </dependency>
         <!-- 数据库 -->
         <dependency>
@@ -87,39 +72,6 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jetty.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-jndi</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-io</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>${jetty.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-xml</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jetty</groupId>
-                    <artifactId>jetty-security</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 
     <repositories>
